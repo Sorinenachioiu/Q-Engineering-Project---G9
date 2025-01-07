@@ -1,2 +1,2 @@
-src/cfg/
+*.cfg
 *.pyc

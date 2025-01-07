@@ -2,3 +2,4 @@ qiskit
 qiskit-ibm-runtime
 quantuminspire
 configparser
+numpy==1.24.0

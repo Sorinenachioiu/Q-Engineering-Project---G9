@@ -4,4 +4,4 @@ from connect import get_backend
 backend_type = "ibm"
 # backend_type = "qi"
 
-get_backend(backend_type, True)
+backend = get_backend(backend_type, True)

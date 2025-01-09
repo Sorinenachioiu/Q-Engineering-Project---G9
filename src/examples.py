@@ -40,7 +40,7 @@ def universal_gate_set(backend, verbose=False):
         print(f"Error while executing the universal gate set circuit: {e}")
 
 
-def grovers_algorithm_smart(backend, verbose=False):
+def grovers_algorithm(backend, verbose=False):
     """
     Grover's Algorithm for searching decimal number 6 (binary |110>) in a database of size 2^3.
 

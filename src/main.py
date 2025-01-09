@@ -10,6 +10,6 @@ backend = get_backend(backend_type, True)
 
 universal_gate_set(backend)
 
-grovers_algorithm_smart(backend)
+grovers_algorithm(backend)
 
 # play_tic_tac_toe()

@@ -1,6 +1,6 @@
 from connect import get_backend
 from examples import *
-from basic_tic_tac_toe import *
+# from basic_tic_tac_toe import *
 
 # set as "ibm" to use ibm backend
 # backend_type = "ibm"

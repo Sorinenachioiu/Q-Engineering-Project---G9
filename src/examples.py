@@ -1,6 +1,10 @@
 from qiskit import QuantumCircuit
 from helpers import *
 
+def run_initial_examples(backend):
+    perform_experiment(backend, universal_gate_set(backend), "Universal_gate_set")
+    perform_experiment(backend, grovers_algorithm(backend), "Grover_find_6") 
+
 def universal_gate_set(backend, verbose=False):
     """
     Demonstrate a universal quantum gate set on the given backend.
@@ -24,23 +28,10 @@ def universal_gate_set(backend, verbose=False):
     # Measure all qubits
     circuit.measure_all()
 
-    # Print the circuit
-    print("Circuit for Universal Quantum Gate Set:")
-    print(circuit.draw(output='text'))
-
-    save_circuit_png(circuit, "universal_set")
-
-    # Execute the circuit on the backend
-    try:
-        job = backend.run(circuit, shots=1024)
-        result = job.result()
-        counts = result.get_counts(circuit)
-        print("Resulting counts:", counts)
-    except Exception as e:
-        print(f"Error while executing the universal gate set circuit: {e}")
+    return circuit
 
 
-def grovers_algorithm_smart(backend, verbose=False):
+def grovers_algorithm(backend, verbose=False):
     """
     Grover's Algorithm for searching decimal number 6 (binary |110>) in a database of size 2^3.
 
@@ -78,18 +69,4 @@ def grovers_algorithm_smart(backend, verbose=False):
     # Step 3: Measure all qubits
     circuit.measure_all()
 
-    # Print the circuit
-    print("Grover's Algorithm Circuit for Searching |110>:")
-    print(circuit.draw(output='text'))
-
-    # Save the circuit as a PNG file
-    save_circuit_png(circuit, "grover_find_6")
-
-    # Execute the circuit on the backend
-    try:
-        job = backend.run(circuit, shots=1024)
-        result = job.result()
-        counts = result.get_counts(circuit)
-        print("Resulting counts:", counts)
-    except Exception as e:
-        print(f"Error while executing Grover's algorithm circuit: {e}")
+    return circuit

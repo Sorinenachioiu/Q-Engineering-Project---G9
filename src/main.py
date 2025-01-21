@@ -9,6 +9,8 @@ backend_type = "qi"
 
 backend = get_backend(backend_type, True)
 
-# run_initial_examples(backend) # - run universal gate set and Grover
-basic_examples_simple_codes(backend) # - run error correction examples
-# shor_code_examples(backend)
+universal_gate_set(backend)
+
+grovers_algorithm(backend)
+
+# play_tic_tac_toe()

@@ -30,8 +30,10 @@ def run_steane_code(backend):
     qc.cnot(q[4], q[2])
     qc.cnot(q[4], q[3])
 
-    #set up ancilla qubits
-    #how to set them to 0?
+    # set up ancilla qubits
+    # currently 6 - could be three and get reset in between
+    # possibly to do later
+    # how to set them to 0?
 
     # set up bit flip detection
     qc.cnot(q[0], c[0])

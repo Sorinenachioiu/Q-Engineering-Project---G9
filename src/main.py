@@ -10,7 +10,7 @@ from experiments.run_experiments import *
 # set as "ibm" to use ibm backend
 # backend_type = "ibm"
 backend_type = "qi"
-
+# hi this is fun
 backend = get_backend(backend_type, True)
 
 # run_initial_examples(backend) # - run universal gate set and Grover

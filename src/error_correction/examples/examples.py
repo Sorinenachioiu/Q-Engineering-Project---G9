@@ -23,6 +23,12 @@ def bit_flip_examples(backend):
     perform_experiment(backend, bit_flip_code(errors, True), "errors/basic/bit_phase_flip")
 
 
-def shor_code_examples(backend):
-    errors = [("y", 0)]
-    perform_experiment(backend, shor_code(errors, True), "errors/shor/shor_x_flip")
+# def shor_code_examples(backend):
+#     errors = [("y", 0)]
+#     perform_experiment(backend, shor_code(errors, True), "errors/shor/shor_x_flip")
+
+
+def probabilistic_errors_test_examples(backend):
+    for i in range(10):
+        experiment_name = f"errors/basic/probabilistic/probabilistic_error_{i}"
+        perform_experiment(backend, bit_flip_code_probabilistic_error(True), experiment_name, shots = 10)

@@ -2,14 +2,15 @@ from matplotlib import pyplot as plt
 from qiskit import QuantumCircuit
 import os
 
-def perform_experiment(backend, circuit, experiment_name, shots = 1024):
+def perform_experiment(backend, circuit, experiment_name, store_results = True, shots = 1024, verbose = True):
     try:
-        print(f"\nCircuit diagram of {experiment_name} looks like:\n")
-        print(circuit.draw(output='text'))
+        if verbose:
+            print(f"\nCircuit diagram of {experiment_name} looks like:\n")
+            print(circuit.draw(output='text'))
     except Exception as e:
         print((f"Error while drawing in the terminal the circuit: {e}"))
 
-    if experiment_name is not None:
+    if store_results:
         save_circuit_png(circuit, experiment_name)
 
     # Execute the circuit on the backend
@@ -18,11 +19,16 @@ def perform_experiment(backend, circuit, experiment_name, shots = 1024):
         result = job.result()
         counts = result.get_counts(circuit)
         
-        if experiment_name is not None:
+        if store_results is not None:
             save_histogram(counts, experiment_name)
 
-        print("Resulting counts:", counts)
-        print("\n ----------------------------------------- ")
+        if verbose:
+            print("Resulting counts:", counts)
+            print("\n ----------------------------------------- ")
+
+        # fidelity = get_fidelity()
+
+        return counts
     except Exception as e:
         print(f"Error while executing the circuit: {e}")
 

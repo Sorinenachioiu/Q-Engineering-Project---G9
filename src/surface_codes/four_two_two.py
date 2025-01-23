@@ -41,6 +41,18 @@ def logical_Z_second_q_422(circuit, data):
     circuit.barrier()
     return circuit
 
+# since it performs a swap operations be careful that the qubits are now inverted
+def logical_SWAP_01_H_both_422(circuit, data):
+    circuit.barrier()
+
+    circuit.h(data[0])
+    circuit.h(data[1])
+    circuit.h(data[2])
+    circuit.h(data[3])
+    
+    circuit.barrier()
+    return circuit
+
 
 def logical_CNOT_01_422(circuit, data):
     circuit.barrier()
@@ -74,19 +86,6 @@ def four_two_two_encoding(circuit, data):
 
     return circuit
 
-# def four_two_two_decoding(circuit, data):
-
-#     circuit.cx(data[0], data[1])
-#     circuit.cx(data[0], data[2])
-#     circuit.cx(data[0], data[3])
-
-#     circuit.h(data[0])
-
-#     circuit.barrier()
-
-#     return circuit
-
-# def four_two_two_stabilizer_x(circuit, data, ancilla)
 
 def four_two_two_decoding(circuit, data, ancilla, stabilizers_indices):
 
@@ -109,6 +108,9 @@ def four_two_two_Noisy_Channel(circuit, errors):
     # target_qubits = [0]
     # error_probs = {"x": 0.99 } # error_probs = {"x": 0.10, "z": 0.15, "y": 0.05}
     
+    if not errors or not errors.get("target_qubits") or not errors.get("error_probs"):
+        return circuit
+    
     target_qubits = errors["target_qubits"]
     error_probs = errors["error_probs"]
 
@@ -116,12 +118,7 @@ def four_two_two_Noisy_Channel(circuit, errors):
     return circuit
 
 
-# https://github.com/CSCfi/Quantum/blob/main/Grover-Search-on-Helmi/Grover_Search_error_detecting.ipynb
-def four_two_two_code(initial_state = "00", errors = [], verbose=False):
-    """
-        initial state = the initial state of the two qubits, a string that belongs to ["00", "01", "10", "11"]
-    """
-
+def four_two_two_circuit_setup():
     stabilizers_indices = [
         [0, 1, 2, 3],  
     ]
@@ -134,6 +131,17 @@ def four_two_two_code(initial_state = "00", errors = [], verbose=False):
 
     # Create quantum circuit
     circuit = QuantumCircuit(data, ancilla, stabilizer_classical, logical_classical)
+    
+    return circuit, data, ancilla, stabilizer_classical, logical_classical, stabilizers_indices
+
+# https://github.com/CSCfi/Quantum/blob/main/Grover-Search-on-Helmi/Grover_Search_error_detecting.ipynb
+# https://errorcorrectionzoo.org/c/stab_4_2_2#citation-1
+def four_two_two_code(initial_state = "00", errors = [], verbose=False):
+    """
+        initial state = the initial state of the two qubits, a string that belongs to ["00", "01", "10", "11"]
+    """
+
+    circuit, data, ancilla, stabilizer_classical, logical_classical, stabilizers_indices = four_two_two_circuit_setup()
 
     circuit = four_two_two_encoding(circuit, data)    
 
@@ -195,6 +203,7 @@ def analyze_four_two_two_logical_state(counts):
         # Determine if an error was detected based on stabilizer bits
         if '1' in error_bits:
             error_count += count
+            continue
 
         # Count occurrences of logical bit patterns
         if logical_bits in observed_states:
@@ -228,3 +237,5 @@ def pretty_print_four_two_two_results(results):
     print(f"Total occurrences: {results['total_occurrences']}")
     print(f"Detailed counts: {results['detailed_counts']}")
     print("")
+
+

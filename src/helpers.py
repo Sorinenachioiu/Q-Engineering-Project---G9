@@ -78,8 +78,8 @@ def save_histogram(counts, experiment_name):
     print(f"Histogram saved to {output_path}\n")
 
 
-def save_experiment_plot(error_probabilities, success_rates, experiment_name):
-    output_path = f'/app/output/{experiment_name}/performance_plot'
+def save_experiment_plot(error_probabilities, success_rates, experiment_name, experiment_path):
+    output_path = f'/app/output/{experiment_path}/performance_plot'
     directory = os.path.dirname(output_path)
 
     # Create directory if it doesn't exist

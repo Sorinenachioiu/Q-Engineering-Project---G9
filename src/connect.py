@@ -59,7 +59,7 @@ def get_ibm_backend(verbose = False):
         # Load API token and URL
         token = config['Default']['token']
         url = config['Default'].get('url', 'https://auth.quantum-computing.ibm.com/api')
-        backend_name = config['Default'].get('backend', 'ibmq_qasm_simulator')      
+        backend_name = config['Default'].get('backend_name', 'ibmq_qasm_simulator')      
     except KeyError as e:
         print(f"Missing required field in configuration file: {e}")
     except Exception as e:
@@ -70,6 +70,7 @@ def get_ibm_backend(verbose = False):
         QiskitRuntimeService.save_account(channel="ibm_quantum", token=token, overwrite=True)
         service = QiskitRuntimeService(channel="ibm_quantum")
         backend = service.least_busy(simulator=False, operational=True)
+        return backend
         print(f"Connected to backend: {backend}")
     except KeyError as e:
         print(f"Missing required field in configuration file: {e}")

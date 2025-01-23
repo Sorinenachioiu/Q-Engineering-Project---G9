@@ -18,7 +18,7 @@ Now, let's look at the 4 possible functions that we can analyze, mroe specifical
 
 ![https://errorcorrectionzoo.org/c/stab_4_2_2#citation-1](image-4.png)
 
-Soo, we use the stabilizers to define a space with only 4 states that are valid, and use those two states to encode two logical qubits. pretty neat, right?
+Soo, we use the stabilizers to define a space with only 4 states that are valid, and use those four states to encode two logical qubits. pretty neat, right?
 
 Looking now at the circuit:
 
@@ -72,6 +72,10 @@ The circuit was made in an interesting manner:
 And this would be the results, as got from running the `run_Deutsch_logical_422_qi` function from the `four_two_two_qi` module:
 ![results - quantum inspire simulator](image.png)
 As you can see the result is `0`, as expected, (the second bit is the one we are interested in, as explained above when trying to make sense of the swaping when doing operations).
+
+Here is a step by step abstract way of seeing what happens inside of the above circuit:
+
+![alt text](<Desen 3 (1).png>)
 
 Yet, real life is not as good as the simulation... when running the same code on the ibm quantum platform... the physical qubits are really noisy and.. well, it's like a coin flip... you get all the possible outputs in equal probability...: (for brevety the huge list of all the bitstrings got as output was omited)
 

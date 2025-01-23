@@ -2,23 +2,24 @@
 
 ## How Deutsch's algorithm look like (2 qubits)
 
-Below is the general circuit for Deutsch's algorithm, using 2 qubits. As you can see you begin from a `|01>` state, apply a `hadamard transform`(hadamard on all qubits) then you pass your qubits through an oracle that is able to simulate any function `f(x)`. and at the end you hadamard the first qubit and then measure it.
+Below is the general circuit for Deutsch's algorithm, using 2 qubits. As you can see you begin from a `|01>` state, apply a `hadamard transform`(hadamard on all qubits) then you pass your qubits through an oracle that is able to simulate any function `f(x)`. and at the end you hadamard the first qubit and  measure it.
 
 ![alt text](assets/image-1.png)
 
-The algorithm is meant to tell wheter a given function is constant or balanced. In the case of a constant function, the output will be 0, and in the case of a balanced function, the output will be 1. 
+The algorithm is meant to tell wheter a given function is constant or balanced (f(x) = value -> constant, f(x) = 0 half of time, f(x) = 1 the other half -> balanced). In the case of a constant function, the output will be 0, and in the case of a balanced function, the output will be 1. 
 
-Now, let's look at the 4 possible functions that we can analyze, mroe specifically at how the oracle would look for each of them. See below.
+Now, let's look at the 4 possible functions that we can analyze, more specifically at how the oracle would look for each of them. See below.
+
 ![alt text](assets/image-2.png)
 
 
 ## [[4,2,2]] encoding
 
-4 physical qubits, 2 logical qubits, 2 ancilla qubits. The logical qubits are encoded in the physical qubits in the following way:
+4 physical qubits, 2 logical qubits, distance 2 errors. The logical qubits are encoded in the physical qubits in the following way:
 
 ![https://errorcorrectionzoo.org/c/stab_4_2_2#citation-1](assets/image-4.png)
 
-Soo, we use the stabilizers to define a space with only 4 states that are valid, and use those four states to encode two logical qubits. pretty neat, right?
+Soo, we use the stabilizers to define a space with only 8 states that are valid, and pair them into four states to encode two logical qubits. pretty neat, right?
 
 Looking now at the circuit:
 

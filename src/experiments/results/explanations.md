@@ -1,7 +1,7 @@
 # Experiments to run and their results
 
 # Running experiments:
-In the experiments.py define the properties of the experiment to be run and then add it to a list and run it from main.
+In the `experiments.py` define the properties of the experiment to be run and then add it to a list and run it from main.
 By calling the `run_experiments` function inside of run_experiments.py
 
 This will call `qecc_experiment` function from framework.py which will automatically run the experiments
@@ -10,6 +10,22 @@ with the given properites.
 
 ## Experiments methodology - How do we run the experiments?
 
+### Theoretical computation of the success rate of the code
+
+First, we establish a theoretical curve that represents the success rate of the code as a function of the error probability.
+
+![mathematical expectations](assets/theoretical_way_of_computing.png)
+
+Thus, we know what we should expect from our simulation/ what pattern we should see in the results.
+
+### Assumptions made:
+
+- We only consider errors belonging to the Pauli group. (X, Y, Z)
+- We only consider errors within a Noisy Channel, that is situated between the encoding and decoding of any code.
+As that is the place where in theory most operations would be made during an actual algorithm.
+- We consider the error probability to be the same for all qubits.
+- We consider the error probability to be the same for all types of errors. (X, Y, Z)
+- We consider that any qubit can suffer from at most one error.
 
 
 ## [[4, 2, 2]] code 

@@ -41,7 +41,7 @@ Since they are all different, we can determine what was the logical state that t
 Performing multiple experiments means that we expect to see a histogram as below:
 ![alt text](image-7.png)
 
-Basically the measurement collapses with equal probability in one of the states that encode a superposition, as you can see from the first four qubits. This reasult can be interpreted as the logical state |10> as you can see from the previous description of the states.
+Basically the measurement collapses with equal probability in one of the states that encode a superposition, as you can see from the first four qubits. This result can be interpreted as the logical state |10> as you can see from the previous description of the states.
 
 The last two qubits being 00, means that both the stabilizers got an output of 0, meaning there was either no error, or there was an error that can be missinterpreted as a logical operator. (changes the state into another valid state).
 

@@ -16,7 +16,13 @@ First, we establish a theoretical curve that represents the success rate of the 
 
 ![mathematical expectations](assets/theoretical_way_of_computing.png)
 
-Thus, we know what we should expect from our simulation/ what pattern we should see in the results.
+Brief explanation:
+- `errornum` - number of errors that we can encounter == number of qubits in the code
+- `maxerrors` - maximum number of errors that can be correct => we can get to the correct result by correcting them
+- `g(x) = 1-x` - probability of error in physical qubit
+- `h(x)` - computes all the possible ways in which we can get `maxerrors` errors in `errornum` qubits and then correct them, getting the right result
+
+Therefore, with this theoretical value we know what we should expect from our simulation/ what pattern we should observe in the results.
 
 ### Assumptions made:
 

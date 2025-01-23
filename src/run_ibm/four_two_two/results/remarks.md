@@ -56,6 +56,7 @@ done, this are the notes =))
 In a really nice world, maybe even call it ideal, we would get exactly what we would expect: 
 
 - `f(x) = 0` would return `0` (constant function)
+
 This is the circuit for it, suing the 422 encoding and logical operators.
 ![00 - const](image-12.png)
 
@@ -70,6 +71,7 @@ The circuit was made in an interesting manner:
 - Since `f(x) = 0` is constant, we expect the result to be 0.
 
 And this would be the results, as got from running the `run_Deutsch_logical_422_qi` function from the `four_two_two_qi` module:
+
 ![results - quantum inspire simulator](image.png)
 As you can see the result is `0`, as expected, (the second bit is the one we are interested in, as explained above when trying to make sense of the swaping when doing operations).
 

@@ -78,3 +78,26 @@ def save_histogram(counts, experiment_name):
     print(f"Histogram saved to {output_path}\n")
 
 
+def save_experiment_plot(error_probabilities, success_rates, experiment_name):
+    output_path = f'/app/output/{experiment_name}/performance_plot'
+    directory = os.path.dirname(output_path)
+
+    # Create directory if it doesn't exist
+    if not os.path.exists(directory):
+        os.makedirs(directory)
+
+    # Create the plot
+    plt.figure(figsize=(8, 6))
+    plt.plot(error_probabilities, success_rates, marker='o', linestyle='-', label="Success Rate")
+    plt.xlabel("Error Probability")
+    plt.ylabel("Success Rate")
+    plt.title(f"Performance of {experiment_name} Code")
+    plt.ylim(0, 1)
+    plt.grid(True)
+    plt.legend()
+
+    # Save the plot as PNG
+    plt.savefig(f'{output_path}.png')
+    plt.close()  # Close the plot to free memory
+
+    print(f"Experiment performance plot saved to {output_path}.png")

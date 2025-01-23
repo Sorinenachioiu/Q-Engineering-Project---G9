@@ -17,3 +17,9 @@ To run everything directly you can use the following command.
 ```bash
 .\run.bat
 ```
+
+Some interesting conclusions/ ideas can be found in the following files:
+
+[[4,2,2] encoded logical qubits - Deutsch algorithm](run_ibm/four_two_two/results/remarks.md)
+
+[Steane and Surface codes](surface_codes/documentation/documentation.md)

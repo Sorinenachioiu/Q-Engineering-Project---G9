@@ -1,22 +1,10 @@
-from surface_codes.four_two_two import *
-from surface_codes.Steane import *
-from error_correction.basic_codes import *
-from error_correction.Shor import *
+from experiments.experiments import *
+import matplotlib.pyplot as plt
 from helpers import *
 
-ERROR_CORRECTING_CODES = {
-    "422": four_two_two_code,   # [[4,2,2]]
-    "Steane": steane_code,      # [[7,1,3]]
-    "513": bit_flip_error,      # [[5,1,3]]
-    "Shor": shor_code           # [[9,1,3]]
-}
 
-
-RESULT_ANALYSIS = {
-    "422": analyze_four_two_two_logical_state,      # [[4,2,2]]
-    "Steane": analyze_four_two_two_logical_state,   # [[7,1,3]]
-    "513": bit_flip_error,                          # [[5,1,3]]
-    "Shor": shor_code                               # [[9,1,3]]
+EXPERIMENT_TYPE = {
+    "422": perform_four_two_two_experiment,
 }
 
 ### Example errors
@@ -26,17 +14,21 @@ RESULT_ANALYSIS = {
 # }
 
 
-def four_two_two_experiment(backend, experiment_properties):
+def qecc_experiment(backend, experiment_properties):
     
+    experiment_type = experiment_properties["experiment_type"]
     base_errors = experiment_properties["base_errors"]                  # base error probabilities and target qubits
     runs_count = experiment_properties["runs_count"]                    # how many times to create the circuit for one error probability
     error_type = experiment_properties["error_type"]                    # what is the type of error that we want to modify
     error_range = experiment_properties["error_range"]                  # range of probability of errors
     number_of_samples = experiment_properties["number_of_samples"]      # how many sample probabilities to take from the range to test on
     shots = experiment_properties["shots"]                              # how many times to run a single experiment
+    expected_state = experiment_properties["expected_state"]
     
     # take number_of_samples equally spaced values from the error_range interval 
     error_probabilities = np.linspace(error_range[0], error_range[1], number_of_samples)
+
+    success_rates = []
 
     for error_probability in error_probabilities:
         current_errors = base_errors.copy()
@@ -44,11 +36,21 @@ def four_two_two_experiment(backend, experiment_properties):
         if error_type in current_errors["error_probs"]:
             current_errors["error_probs"][error_type] = error_probability
 
-        for i in range(runs_count):
-            experiment_name = f"errors/422/prob_{error_probability}/probabilistic_error_run_{i}"
+        success_count = 0
 
-            counts = perform_experiment(backend, ERROR_CORRECTING_CODES["422"]("00", current_errors), 
-                                        experiment_name, store_results=False, shots=shots, verbose=True)
-            
-            results = RESULT_ANALYSIS["422"](counts)
-            pretty_print_four_two_two_results(results)
+        for i in range(runs_count):
+
+            experiment_name = f"errors/{experiment_type}/prob_{error_probability}/probabilistic_error_run_{i}"
+
+            results = EXPERIMENT_TYPE[experiment_type](backend, experiment_type, experiment_name, current_errors, shots)
+
+            if results['deduced_state'] == expected_state:
+                success_count += 1
+
+        success_rate = success_count / runs_count
+        success_rates.append(success_rate)
+
+        print(f"Error Probability: {error_probability:.2f}, Success Rate: {success_rate:.2%}")
+
+    experiment_name = f"{experiment_type}"
+    save_experiment_plot(error_probabilities, success_rates, experiment_name)

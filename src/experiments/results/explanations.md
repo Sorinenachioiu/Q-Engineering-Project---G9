@@ -68,15 +68,53 @@ For each experiment that we'll run we define the following properties:
 
 - We want to `generate the circuit multiple times with a certain error probability` (as each time it is generated it can get different types of errors within the `Noisy channel`) and then run it multiple times to get a more accurate result. Thus geting a `meaningful average of the success rate of the code for that error probability.` 
 
-Once this properties are defined we add the experiment to a list and run it from main by calling the `run_experiments` function inside of `run_experiments.py`. 
+Once this properites are defined, we can run the experiments automatically. Below is the code that runs one such experiment given the properites defined above (some parts are omitted for brevity).
 
-This will call `qecc_experiment` function from `framework.py` which will automatically run the experiments with the given properites.
+```python
+def qecc_experiment(backend, experiment_properties):
+
+    ##### unpacking experiment_properites - prologue #####
+    
+    # take number_of_samples equally spaced values from the error_range interval 
+    error_probabilities = np.linspace(error_range[0], error_range[1], number_of_samples)
+
+    success_rates = []
+
+    for error_probability in error_probabilities:
+        current_errors = base_errors.copy()  # reset errors to base errors
+        
+        for error_type in error_types:
+            if error_type in current_errors["error_probs"]:
+                current_errors["error_probs"][error_type] = error_probability # update error probability for each type of error
+
+        success_count = 0
+
+        for i in range(runs_count):
+
+            #### define experiment_name ####
+            
+            # run the experiment
+            results = EXPERIMENT_TYPE[experiment_type](backend, experiment_type, experiment_name, current_errors, shots) 
+
+            if results['deduced_state'] == expected_state:
+                success_count += 1 
+
+        success_rate = success_count / runs_count
+        success_rates.append(success_rate)
+
+        print(f"Error Probability: {error_probability:.2f}, Success Rate: {success_rate:.2%}")
+
+    experiment_name = f"{experiment_type}"
+    save_experiment_plot(error_probabilities, success_rates, experiment_name, experiment_path)
+```
 
 During the run of the experiment, the results of each individual experiment will be compared to the `expected_state` and the success rate of the code will be computed `for each error probability`. 
 
 Then, the results will be plotted using matplotlib and saved in the `circuits/{experiment_path}` folder locally. 
 
 The plot will contain the theoretical curve, the success rate of the physical qubit and the success rate of the code as a function of the error probability.
+
+The framework defined for running the experiments is flexible and can be easily extended to run more experiments with different properties.
 
 
 # [[4, 2, 2]] code 

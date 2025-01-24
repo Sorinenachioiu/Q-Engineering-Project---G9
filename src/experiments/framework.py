@@ -33,6 +33,8 @@ def qecc_experiment(backend, experiment_properties):
     success_rates = []
 
     for error_probability in error_probabilities:
+        print(f"\nRunning {experiment_type} for error prob: {error_probability}  ...\n")
+
         current_errors = base_errors.copy()
         
         for error_type in error_types:
@@ -55,10 +57,22 @@ def qecc_experiment(backend, experiment_properties):
 
         print(f"Error Probability: {error_probability:.2f}, Success Rate: {success_rate:.2%}")
 
+    cont_probs, th_success_rates, physical_sucess_rates = compute_theoretical_and_physical_qubit_success_rates(error_range)
+
     experiment_name = f"{experiment_type}"
-    save_experiment_plot(error_probabilities, success_rates, experiment_name, experiment_path)
+    save_experiment_plot(error_probabilities, success_rates, cont_probs, th_success_rates, physical_sucess_rates, experiment_name, experiment_path)
 
     end_time = time.time()  
     total_time = end_time - start_time
     print(f"Total experiment runtime: {total_time:.2f} seconds")
 
+
+def compute_theoretical_and_physical_qubit_success_rates(error_range):
+    # Take a more continuous like error_probabilities for smooth lines for theoretical and physical qubit values
+    continuos_error_probabilities = np.linspace(error_range[0], error_range[1], 500)
+
+    # Compute theoretical and physical qubit success rates over 
+    theoretical_success_rates = [theoretical_model(p, errornum=4, maxerrors=0) for p in continuos_error_probabilities]
+    physical_success_rates = [theoretical_model(p, errornum=1, maxerrors=0) for p in continuos_error_probabilities]
+
+    return continuos_error_probabilities, theoretical_success_rates, physical_success_rates

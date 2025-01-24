@@ -130,19 +130,20 @@ And it is one of the smallest codes that you can use.
 Let's see how it performs in practice by running some experiments. 
 
 What we want to investigate is the following: 
-- At what error rate does the code starts to be totally unusable on average?
+- [x] How does the `success rate of the code` change as the error probability of `bit flips` increases?
+![x - 422](assets/plots/four_two_two/performance_plot_x.png)
+
+- [x] How does the `success rate of the code` change as the error probability of `phase flips` increases?
+![z - 422](assets/plots/four_two_two/performance_plot_z.png)
+
+- [x] How does the `success rate of the code` change as the error probability of `bit and phase flips` increases?
+![y - 422](assets/plots/four_two_two/performance_plot_y.png)
+
+
+As can be seen from the plots, the theoretical model is totaly accurate.
 
 
 
-
-
-
-
-- [] Run experiment to ch
-
-
-
-![alt text](assets/422_x_flip.png)
 
 
 

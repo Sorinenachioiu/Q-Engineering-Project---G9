@@ -11,11 +11,14 @@ EXPERIMENT_PROPERTIES = {
 
 def run_experiments(backend, experiments_to_run):
     for experiment_key in experiments_to_run:
+        
         if experiment_key in EXPERIMENT_PROPERTIES:
             experiment_properties = EXPERIMENT_PROPERTIES[experiment_key]()
-            print(f"Running experiment: {experiment_properties['experiment_path']}")
+
+            print(f"\nRunning experiment: {experiment_properties['experiment_path']}")
+
             qecc_experiment(backend, experiment_properties)
+
+            print(f"\nDone with experiment: {experiment_properties['experiment_path']}")
         else:
             print(f"Experiment {experiment_key} not found in EXPERIMENT_PROPERTIES")
-
-    qecc_experiment(backend, experiment_properties)

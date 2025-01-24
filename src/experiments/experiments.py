@@ -30,3 +30,22 @@ def perform_four_two_two_experiment(backend, experiment_type, experiment_name, c
 
     return results
 
+
+def theoretical_model(x, errornum = 1, maxerrors = 0):
+    """
+        Method to compute the theoretical curve that we would see if we run enough experiments 
+        for a certain code
+
+        Note ! the default params errornum = 1, maxerrors = 0 are equivalent to a physical qubit 
+
+        We are interested in probabilities so we only are interested between [0, 1]
+    """
+    if 0 <= x  and x <= 1:
+        result = sum(
+            (math.factorial(errornum) / (math.factorial(i) * math.factorial(errornum - i))) * 
+            (x ** i) * ((1 - x) ** (errornum - i)) 
+            for i in range(maxerrors + 1)
+        )
+        return result
+    else:
+        return 0 

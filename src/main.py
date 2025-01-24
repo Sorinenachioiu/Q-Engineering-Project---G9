@@ -36,5 +36,5 @@ backend = get_backend(backend_type, True)
 # results = analyze_Steane_logical_state(counts)
 # pretty_print_Steane_results(results)
 
-experiments_to_run = ["x_422"]
+experiments_to_run = ["z_422"]
 run_experiments(backend, experiments_to_run)

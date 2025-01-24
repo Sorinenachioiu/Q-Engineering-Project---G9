@@ -154,7 +154,6 @@ Theoretical expectation of the success rate as a function of the error probabili
 
 ![alt text](assets/steane_theoretical.png)
 
-
 # Laflamme code [[5, 1, 3]]
 
 Theoretical expectation of the success rate as a function of the error probability:

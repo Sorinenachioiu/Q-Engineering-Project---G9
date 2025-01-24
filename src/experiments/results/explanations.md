@@ -1,6 +1,6 @@
 # Experiments to run and their results
 
-# Running experiments:
+## Running experiments:
 In the `experiments.py` define the properties of the experiment to be run and then add it to a list and run it from main.
 By calling the `run_experiments` function inside of run_experiments.py
 
@@ -8,9 +8,9 @@ This will call `qecc_experiment` function from framework.py which will automatic
 with the given properites.
 
 
-## Experiments methodology - How do we run the experiments?
+# Experiments methodology - How do we run the experiments?
 
-### Theoretical computation of the success rate of the code
+## Theoretical computation of the success rate of the code
 
 First, we establish a theoretical curve that represents the success rate of the code as a function of the error probability.
 
@@ -22,19 +22,64 @@ Brief explanation:
 - `g(x) = 1-x` - probability of error in physical qubit
 - `h(x)` - computes all the possible ways in which we can get `maxerrors` errors in `errornum` qubits and then correct them, getting the right result
 
+\
+![alt text](assets/theoretical_curve.png)
+
+This is one such curve. What it means ?
+- The `x-axis` represents the error probability. 
+- The `y-axis` represents the success rate of the code.
+- The `blue line` is the theoretical curve that we compute using the formula above.
+- The `red line` is the success rate of a physical qubit. (1 - error probability, since we have no correction)
+- `Interesction point` is the point at which a logical qubit encoded using the code performs the same as a physical qubit.
+
+
 Therefore, with this theoretical value we know what we should expect from our simulation/ what pattern we should observe in the results.
 
-### Assumptions made:
+## Assumptions made:
 
-- We only consider errors belonging to the Pauli group. (X, Y, Z)
-- We only consider errors within a Noisy Channel, that is situated between the encoding and decoding of any code.
-As that is the place where in theory most operations would be made during an actual algorithm.
-- We consider the error probability to be the same for all qubits.
-- We consider the error probability to be the same for all types of errors. (X, Y, Z)
-- We consider that any qubit can suffer from at most one error.
+- We only consider `errors` belonging to the `Pauli group. (X, Y, Z)`
+- We only consider errors within a `Noisy Channel`, that is situated `between the encoding and decoding` of any code.
+As that is the place where, in theory, most operations would be made during an actual algorithm.
+- We consider the `error probability` to be the `same for all qubits`.
+- We consider the `error probability` to be the `same for all types of errors.` (X, Y, Z)
+- We consider that `any qubit can suffer from at most one error.`
+
+## Experiment methodology:
+
+For each experiment that we'll run we define the following properties:
+
+![experiment properites](assets/experiment_properties.png)
+
+- `experiment_type` - the `code` that `we want to test`
+- `base_errors` - initial assumptions about errors
+    - `target_qubits` - the qubits that can be affected by errors
+    - `error_probability` - the probability of an error occuring for each type of error
+- `runs_count` - the number of time we create the circuit and run it (*extra explanation below)
+- `error_types` - specifies what types of errors we want to modify during the experiment
+- `error_range` - the range of error probabilities that we want to test
+- `number_of_samples` - the amount of equally spaced points in the `error_range` that define the error probabilities that we want to test. (e.g range = (0, 0.1), number_of_samples = 3 => we take three points 0, 0.05, 0.1 and run experiments for each of them)
+- `shots` - amount of times we repeat an experiment with the same circuit
+- `expected_state` - the state that we expect to get as result
+- `experiment_path` - where we want to save the results of the experiment 
 
 
-## [[4, 2, 2]] code 
+\
+**Explanation of `runs_count`**:
+
+- We want to `generate the circuit multiple times with a certain error probability` (as each time it is generated it can get different types of errors within the `Noisy channel`) and then run it multiple times to get a more accurate result. Thus geting a `meaningful average of the success rate of the code for that error probability.` 
+
+Once this properties are defined we add the experiment to a list and run it from main by calling the `run_experiments` function inside of `run_experiments.py`. 
+
+This will call `qecc_experiment` function from `framework.py` which will automatically run the experiments with the given properites.
+
+During the run of the experiment, the results of each individual experiment will be compared to the `expected_state` and the success rate of the code will be computed `for each error probability`. 
+
+Then, the results will be plotted using matplotlib and saved in the `circuits/{experiment_path}` folder locally. 
+
+The plot will contain the theoretical curve, the success rate of the physical qubit and the success rate of the code as a function of the error probability.
+
+
+# [[4, 2, 2]] code 
 
 Theoretical expectation of the success rate as a function of the error probability:
 
@@ -64,14 +109,14 @@ What we want to investigate is the following:
 
 
 
-## Steane code  [[7, 1, 3]]
+# Steane code  [[7, 1, 3]]
 
 Theoretical expectation of the success rate as a function of the error probability:
 
 ![alt text](assets/steane_theoretical.png)
 
 
-## Laflamme code [[5, 1, 3]]
+# Laflamme code [[5, 1, 3]]
 
 Theoretical expectation of the success rate as a function of the error probability:
 

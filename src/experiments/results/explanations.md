@@ -35,7 +35,7 @@ This is one such curve. What it means ?
 
 Therefore, with this theoretical value we know what we should expect from our simulation/ what pattern we should observe in the results.
 
-## Assumptions made:
+## Assumptions made about errors:
 
 - We only consider `errors` belonging to the `Pauli group. (X, Y, Z)`
 - We only consider errors within a `Noisy Channel`, that is situated `between the encoding and decoding` of any code.

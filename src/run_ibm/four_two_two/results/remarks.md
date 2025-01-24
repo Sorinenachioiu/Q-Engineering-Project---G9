@@ -78,7 +78,7 @@ As you can see the result is `0`, as expected, (the second bit is the one we are
 
 Here is a step by step abstract way of seeing what happens inside of the above circuit:
 
-![alt text](assets/<Desen 3 (1).png>)
+![alt text](assets/Desen3.png)
 
 Yet, real life is not as good as the simulation... when running the same code on the ibm quantum platform... the physical qubits are really noisy and.. well, it's like a coin flip... you get all the possible outputs in equal probability...: (for brevety the huge list of all the bitstrings got as output was omited)
 

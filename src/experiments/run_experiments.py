@@ -1,12 +1,18 @@
 from experiments.framework import *
 from experiments.properties.four_two_two_properites import *
-
+from experiments.properties.steane_properties import *
 
 
 EXPERIMENT_PROPERTIES = {
+    ## [[4, 2, 2]] code
     "x_422": x_flip_0_015_properites_422,
     "y_422": y_flip_0_015_properites_422,
-    "z_422": z_flip_0_015_properites_422
+    "z_422": z_flip_0_015_properites_422,
+    
+    ## Steane code
+    "x_Steane": x_flip_0_005_properites_steane,
+    "y_Steane": y_flip_0_005_properites_steane,
+    "z_Steane": z_flip_0_005_properites_steane
 }
 
 def run_experiments(backend, experiments_to_run):

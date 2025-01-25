@@ -79,7 +79,7 @@ def save_histogram(counts, experiment_name):
 
 
 def save_experiment_plot(error_probabilities, success_rates, cont_probs, th_success_rates, 
-                         physical_sucess_rates, experiment_name, experiment_path):
+                         physical_success_rates, experiment_name, experiment_path):
     
     output_path = f'/app/output/{experiment_path}/performance_plot'
     directory = os.path.dirname(output_path)
@@ -98,13 +98,16 @@ def save_experiment_plot(error_probabilities, success_rates, cont_probs, th_succ
     plt.plot(cont_probs, th_success_rates, linestyle='--', label="Theoretical Prediction")
 
     # Plot smooth physical success rate (fine-grained line)
-    plt.plot(cont_probs, physical_sucess_rates, linestyle='--', label="Physical Success Rate")
+    plt.plot(cont_probs, physical_success_rates, linestyle='--', label="Physical Success Rate")
 
     # Add labels and legend
     plt.xlabel("Error Probability")
     plt.ylabel("Success Rate")
     plt.title(f"Performance of {experiment_name} Code")
-    plt.ylim(0, 1)
+
+    # Adjust y-axis to focus on the range between 0.8 and 1 - for Steane
+    # plt.ylim(0.9, 1)
+
     plt.grid(True)
     plt.legend()
 

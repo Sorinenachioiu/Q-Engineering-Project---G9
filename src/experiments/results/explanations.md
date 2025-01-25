@@ -129,7 +129,7 @@ And it is one of the smallest codes that you can use.
 
 Let's see how it performs in practice by running some experiments. 
 
-What we want to investigate is the following: 
+What we investigated is the following: 
 - [x] How does the `success rate of the code` change as the error probability of `bit flips` increases?
 ![x - 422](assets/plots/four_two_two/performance_plot_x.png)
 
@@ -154,8 +154,64 @@ Theoretical expectation of the success rate as a function of the error probabili
 
 ![alt text](assets/steane_theoretical.png)
 
+Compared to the [[4, 2, 2]] code, the Steane code can correct errors, thus it can for a really small erorr probability have a success rate grater than that of a physical qubit. Which is a desirable property of usable error correcting codes.
+
+Yet, one impediment for the Steane code is that it is a bit more complex than the previous one. The circuit looks like this:
+
+
+![alt text](assets/Steane_circuit.png)
+
+Because it is this complex, one run takes a lot of time. And performing the whole experiment for a lot of error probabilities is a long process. Not only this, but another problem is that the range between it performs better than a physical qubit is somewhere around (0, 0.05). Meaning that the distance between the two curves, the one for the theoretical prediction and the one for the physical qubit is really small. Thus, it requires a lot of experiments to be run in order to make a meaningful plot that proves that in the simulation the Steane code really follows the theoretical prediction, being better than the physical qubit. As the differences of the curves is around ~0.01, which would mean that in 100 experiments we would have a difference of only 1 experiment... thus a really large number of experiments would need to be run. And because of the complexity of the circuit it would take a lot of time.
+
+Below is the a warning that we get when running the Steane code, because of it's complexity:
+![alt text](assets/warning_qinspire.png)
+
+The experiments that we have run were again focused on x, y, z errors. And below are the properties that we used for the experiments:
+![alt text](assets/properties_experiment_Steane.png)
+
+So we run for each error probability 100 experiments. We needed to run this multiple times and we chronometered the time that it took to run the experiments, below is how much one such experiment takes: 
+
+![alt text](assets/running_time_Steane.png)
+
+7000 seconds... mean roughly somewhere around 2 hours to run. 
+Yet, the results are not as satysfing as for [[4, 2, 2]]. 
+
+
+What we investigated is the following: 
+- [x] How does the `success rate of the code` change as the error probability of `bit flips` increases?
+![x - 422](assets/plots/Steane/performance_plot_x.png)
+
+- [x] How does the `success rate of the code` change as the error probability of `phase flips` increases?
+![z - 422](assets/plots/Steane/performance_plot_z.png)
+
+- [x] How does the `success rate of the code` change as the error probability of `bit and phase flips` increases?
+![y - 422](assets/plots/Steane/performance_plot_y.png)
+
+
+Thus, the Steane code seem to perform a little bit better than the physical qubit. Yet, the difference is not that big. And the theoretical prediction requires a really large amount to be proven in simulations. Stil.. this is proof that we can perform better than physical qubits. 
+
+
 # Laflamme code [[5, 1, 3]]
+
+Now, we want to investigate another code, which is the Laflamme code, which still encodes one qubit and has distance 3, yet it uses only 5 qubits, thus, there are less qubits that can be affected by errors. And the amount of errors that it can correct is still 1. Thus, in the theoretical prediciton we can see that it performs better than the physical qubit for a larger range of error probabilities than the Steane code. Thus, it means that not only does it matter to correct errors, but it is also important how many qubits we use. Thus this ratio between the number of qubits and the number of errors that we can correct is important. This can also be better understand by playing with the two params of the function that we use to compute the theoretical prediction. (https://www.geogebra.org/calculator/fj6st6hk - link to the function)
+
+Meaning that we shouldn't only be considering the distance of the code, but also the number of qubits that we use. 
 
 Theoretical expectation of the success rate as a function of the error probability:
 
 ![alt text](assets/laflamme_theoretical.png)
+
+
+# Conclusion
+
+We began with making a theoretical prediction of the success rate of the code as a function of the error probability. This was done by computing the probability of getting the right result by correcting the errors that we can encounter. 
+
+Then, we ran experiments for the [[4, 2, 2]], Steane code [[7, 1, 3]] and Laflamme code [[5, 1, 3]].
+
+We began with the [[4,2,2]] code, which was an interesting because it is based on the power of stabilizers. It does not perform better than a phyiscal qubit, yet it enables us to encode two qubits at the same time, while also allowing us to detect errors, thus, at the end of an experiment we would at least know that an error occured. 
+
+Then, we moved to the Steane code ([[7,1,3]]), which is a bit more complex, yet it can correct errors, which let us understand how the recovery phase works in a QECC. The problem with it is that it is really complex and it takes a lot of time to run. And the range for which it outperforms the physical qubit is really small, yet it does outperform, meaning that by creating logical qubits we can get a better performance than by using regular ones. 
+
+Lastly, we have worked with the Laflamme code ([[5,1,3]]), seeing that it outperforms the physical qubit for a larger range of error probabilities than the Steane code. This is because it uses less qubits, thus it is less error-prone. So, it means that there are two categories in which improvement can be made: how many qubits we use and how many errors we can correct.
+
+Thus, people began to find scalable codes that can be implemented on real circuits, with varying connectivites. One such code is the surface code, which is a 2D code that can be implemented on a 2D grid of qubits. This code is scalable and can be implemented on real quantum computers that are built using superconducting qubits, because they only support well nearest neighbors connectivities. see more in: [surface codes](/src/surface_codes/documentation/documentation.md)

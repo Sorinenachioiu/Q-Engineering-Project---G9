@@ -5,6 +5,7 @@ import time
 
 EXPERIMENT_TYPE = {
     "422": perform_four_two_two_experiment,
+    "Steane":perform_Steane_experiment,
 }
 
 ### Example errors
@@ -51,6 +52,7 @@ def qecc_experiment(backend, experiment_properties):
 
             if results['deduced_state'] == expected_state:
                 success_count += 1
+                print(f"Sucess.. {success_count}")
 
         success_rate = success_count / runs_count
         success_rates.append(success_rate)
@@ -72,7 +74,8 @@ def compute_theoretical_and_physical_qubit_success_rates(error_range):
     continuos_error_probabilities = np.linspace(error_range[0], error_range[1], 500)
 
     # Compute theoretical and physical qubit success rates over 
-    theoretical_success_rates = [theoretical_model(p, errornum=4, maxerrors=0) for p in continuos_error_probabilities]
+    #### !!!!!!!!!!!! CAREFUL now we change params by hand !!!!!!!!!!!!!!!!!!
+    theoretical_success_rates = [theoretical_model(p, errornum=7, maxerrors=1) for p in continuos_error_probabilities]
     physical_success_rates = [theoretical_model(p, errornum=1, maxerrors=0) for p in continuos_error_probabilities]
 
     return continuos_error_probabilities, theoretical_success_rates, physical_success_rates

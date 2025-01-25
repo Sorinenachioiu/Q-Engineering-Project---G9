@@ -18,7 +18,7 @@ First, we establish a theoretical curve that represents the success rate of the 
 
 Brief explanation:
 - `errornum` - number of errors that we can encounter == number of qubits in the code
-- `maxerrors` - maximum number of errors that can be correct => we can get to the correct result by correcting them
+- `maxerrors` - maximum number of errors that can be corrected => we can get to the correct even though they appear
 - `g(x) = 1-x` - probability of error in physical qubit
 - `h(x)` - computes all the possible ways in which we can get `maxerrors` errors in `errornum` qubits and then correct them, getting the right result
 

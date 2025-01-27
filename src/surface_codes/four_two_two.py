@@ -72,6 +72,20 @@ def logical_CNOT_10_422(circuit, data):
     return circuit
 
 
+def four_two_two_encoding_custom_states(circuit, data):
+
+    circuit.cx(data[0], data[2])
+    circuit.cx(data[1], data[2])
+    circuit.h(data[3])
+
+    circuit.cx(data[3], data[2])
+    circuit.cx(data[3], data[1])
+    circuit.cx(data[3], data[0])
+
+    circuit.barrier()
+
+    return circuit
+
 
 def four_two_two_encoding(circuit, data):
 

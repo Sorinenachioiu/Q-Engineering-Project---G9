@@ -201,6 +201,21 @@ Theoretical expectation of the success rate as a function of the error probabili
 
 ![alt text](assets/laflamme_theoretical.png)
 
+Laflamme was another code that had a pretty complex circuit, thus running the experiments for it was again a time consuming task.
+![alt text](assets/running_time_laflamme.png)
+
+
+What we investigated is the following: 
+- [x] How does the `success rate of the code` change as the error probability of `bit flips` increases?
+![x - laflamme](assets/plots/five_one_three/performance_plot_x.png)
+
+- [x] How does the `success rate of the code` change as the error probability of `phase flips` increases?
+![z - laflamme](assets/plots/five_one_three/performance_plot_z.png)
+
+- [x] How does the `success rate of the code` change as the error probability of `bit and phase flips` increases?
+![y - laflamme](assets/plots/five_one_three/performance_plot_y.png)
+
+
 
 # Conclusion
 

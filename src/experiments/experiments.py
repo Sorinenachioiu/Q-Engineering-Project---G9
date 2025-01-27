@@ -2,21 +2,22 @@ from surface_codes.four_two_two import *
 from surface_codes.Steane import *
 from error_correction.basic_codes import *
 from error_correction.Shor import *
+from laflamme import *
 from helpers import *
 
 ERROR_CORRECTING_CODES = {
-    "422": four_two_two_code,   # [[4,2,2]]
-    "Steane": steane_code,      # [[7,1,3]]
-    "513": bit_flip_error,      # [[5,1,3]]
-    "Shor": shor_code           # [[9,1,3]]
+    "422": four_two_two_code,               # [[4,2,2]]
+    "Steane": steane_code,                  # [[7,1,3]]
+    "513": generate_laflamme_circuit,       # [[5,1,3]]
+    # "Shor": shor_code                     # [[9,1,3]]
 }
 
 
 RESULT_ANALYSIS = {
     "422": analyze_four_two_two_logical_state,      # [[4,2,2]]
     "Steane": analyze_Steane_logical_state,         # [[7,1,3]]
-    "513": bit_flip_error,                          # [[5,1,3]]
-    "Shor": shor_code                               # [[9,1,3]]
+    "513": analyze_laflamme_logical_state,          # [[5,1,3]]
+    # "Shor": shor_code                             # [[9,1,3]]
 }
 
 
@@ -37,6 +38,16 @@ def perform_Steane_experiment(backend, experiment_type, experiment_name, current
 
     results = RESULT_ANALYSIS[experiment_type](counts)
     pretty_print_Steane_results(results)
+
+    return results
+
+
+def perform_513_experiment(backend, experiment_type, experiment_name, current_errors, shots):    
+    counts = perform_experiment(backend, ERROR_CORRECTING_CODES[experiment_type](current_errors), 
+                                experiment_name, store_results=False, shots=shots, verbose=False)
+    
+    results = RESULT_ANALYSIS[experiment_type](counts)
+    pretty_print_laflamme_results(results)
 
     return results
 

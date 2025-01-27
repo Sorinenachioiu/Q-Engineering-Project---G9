@@ -5,7 +5,8 @@ import time
 
 EXPERIMENT_TYPE = {
     "422": perform_four_two_two_experiment,
-    "Steane":perform_Steane_experiment,
+    "Steane": perform_Steane_experiment,
+    "513": perform_513_experiment
 }
 
 ### Example errors
@@ -75,7 +76,7 @@ def compute_theoretical_and_physical_qubit_success_rates(error_range):
 
     # Compute theoretical and physical qubit success rates over 
     #### !!!!!!!!!!!! CAREFUL now we change params by hand !!!!!!!!!!!!!!!!!!
-    theoretical_success_rates = [theoretical_model(p, errornum=7, maxerrors=1) for p in continuos_error_probabilities]
+    theoretical_success_rates = [theoretical_model(p, errornum=5, maxerrors=1) for p in continuos_error_probabilities]
     physical_success_rates = [theoretical_model(p, errornum=1, maxerrors=0) for p in continuos_error_probabilities]
 
     return continuos_error_probabilities, theoretical_success_rates, physical_success_rates

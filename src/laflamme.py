@@ -200,8 +200,6 @@ def run_laflamme(backend, state):
     return map(lambda x: x[5:], list(result.get_counts(qc_transpile).keys()))
 
 
-### TODO FINISH BELOW
-
 def analyze_laflamme_logical_state(counts):
     # Define the mapping of physical states to logical states
     logical_state_mapping = {

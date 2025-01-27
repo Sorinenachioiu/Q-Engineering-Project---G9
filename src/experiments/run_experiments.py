@@ -1,19 +1,26 @@
 from experiments.framework import *
 from experiments.properties.four_two_two_properites import *
 from experiments.properties.steane_properties import *
+from experiments.properties.laflamme_properites import *
 
 
 EXPERIMENT_PROPERTIES = {
     ## [[4, 2, 2]] code
-    "x_422": x_flip_0_015_properites_422,
-    "y_422": y_flip_0_015_properites_422,
-    "z_422": z_flip_0_015_properites_422,
+    "x_422": x_flip_0_025_properites_422,
+    "y_422": y_flip_0_025_properites_422,
+    "z_422": z_flip_0_025_properites_422,
     
-    ## Steane code
+    ## Steane code ([[7, 1, 3]])
     "x_Steane": x_flip_0_005_properites_steane,
     "y_Steane": y_flip_0_005_properites_steane,
-    "z_Steane": z_flip_0_005_properites_steane
+    "z_Steane": z_flip_0_005_properites_steane,
+
+    ## Laflamme code ([[5, 1, 3]])
+    "x_513":  x_flip_0_014_properites_513,
+    "y_513":  y_flip_0_014_properites_513,
+    "z_513":  z_flip_0_014_properites_513,
 }
+
 
 def run_experiments(backend, experiments_to_run):
     for experiment_key in experiments_to_run:

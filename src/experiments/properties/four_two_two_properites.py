@@ -1,6 +1,6 @@
 
 
-def x_flip_0_015_properites_422():
+def x_flip_0_025_properites_422():
     return {
         "experiment_type": "422",
         "base_errors": {
@@ -17,7 +17,7 @@ def x_flip_0_015_properites_422():
     }
 
 
-def y_flip_0_015_properites_422():
+def y_flip_0_025_properites_422():
     return {
         "experiment_type": "422",
         "base_errors": {
@@ -34,7 +34,7 @@ def y_flip_0_015_properites_422():
     }
 
 
-def z_flip_0_015_properites_422():
+def z_flip_0_025_properites_422():
     return {
         "experiment_type": "422",
         "base_errors": {

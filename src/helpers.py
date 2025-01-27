@@ -19,7 +19,7 @@ def perform_experiment(backend, circuit, experiment_name, store_results = True, 
         result = job.result()
         counts = result.get_counts(circuit)
         
-        if store_results is not None:
+        if store_results:
             save_histogram(counts, experiment_name)
 
         if verbose:
@@ -78,8 +78,10 @@ def save_histogram(counts, experiment_name):
     print(f"Histogram saved to {output_path}\n")
 
 
-def save_experiment_plot(error_probabilities, success_rates, experiment_name):
-    output_path = f'/app/output/{experiment_name}/performance_plot'
+def save_experiment_plot(error_probabilities, success_rates, cont_probs, th_success_rates, 
+                         physical_success_rates, experiment_name, experiment_path):
+    
+    output_path = f'/app/output/{experiment_path}/performance_plot'
     directory = os.path.dirname(output_path)
 
     # Create directory if it doesn't exist
@@ -88,11 +90,24 @@ def save_experiment_plot(error_probabilities, success_rates, experiment_name):
 
     # Create the plot
     plt.figure(figsize=(8, 6))
-    plt.plot(error_probabilities, success_rates, marker='o', linestyle='-', label="Success Rate")
+
+    # Plot experimental success rates (discrete points)
+    plt.plot(error_probabilities, success_rates, 'o', label="Experimental Success Rate")
+
+    # Plot smooth theoretical approximation (fine-grained line)
+    plt.plot(cont_probs, th_success_rates, linestyle='--', label="Theoretical Prediction")
+
+    # Plot smooth physical success rate (fine-grained line)
+    plt.plot(cont_probs, physical_success_rates, linestyle='--', label="Physical Success Rate")
+
+    # Add labels and legend
     plt.xlabel("Error Probability")
     plt.ylabel("Success Rate")
     plt.title(f"Performance of {experiment_name} Code")
-    plt.ylim(0, 1)
+
+    # Adjust y-axis to focus on the range between 0.8 and 1 - for Steane
+    # plt.ylim(0.9, 1)
+
     plt.grid(True)
     plt.legend()
 

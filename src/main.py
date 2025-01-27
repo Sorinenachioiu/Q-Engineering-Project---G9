@@ -24,29 +24,8 @@ backend = get_backend(backend_type, True)
 
 
 # Below to run all the deutsch logical 422 
-from run_ibm.four_two_two.four_two_two_qi import *
-run_Deutsch_logical_422_qi(backend)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+# from run_ibm.four_two_two.four_two_two_qi import *
+# run_Deutsch_logical_422_qi(backend)
 
 
 # run_initial_examples(backend) # - run universal gate set and Grover
@@ -57,4 +36,17 @@ run_Deutsch_logical_422_qi(backend)
 # results = analyze_Steane_logical_state(counts)
 # pretty_print_Steane_results(results)
 
-# run_experiments(backend)
+# from laflamme import *
+# counts = perform_experiment(backend, generate_laflamme_circuit(init_state=False), "laflamme/with_recovery_1_init", shots=1024)
+# results = analyze_laflamme_logical_state(counts)
+# pretty_print_laflamme_results(results)
+
+
+############# EXPERIMENTS #######################
+## Remember to change in helpers the ylim part
+# experiments_to_run = ["x_513"]
+experiments_to_run = ["y_513"]
+# experiments_to_run = ["z_513"]
+run_experiments(backend, experiments_to_run)
+
+

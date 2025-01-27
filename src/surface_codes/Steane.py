@@ -127,7 +127,7 @@ def steane_correct_error(circuit, data, stabilizer_classical_x, stabilizer_class
     return circuit
 
 # https://stem.mitre.org/quantum/error-correction-codes/steane-ecc.html
-def steane_code(verbose=False):
+def steane_code(errors =[], verbose=False):
 
     stabilizers_indices = [
         [0, 2, 4, 6],  # First stabilizer indices
@@ -151,9 +151,7 @@ def steane_code(verbose=False):
     circuit = steane_encoding(circuit, data)    
 
     ######## Add error here #####
-    target_qubits = [0]
-    error_probs = {"x": 0.99 } # error_probs = {"x": 0.10, "z": 0.15, "y": 0.05}
-    circuit = apply_errors_probabilistic(circuit, target_qubits, error_probs)
+    circuit = steane_Noisy_Channel(circuit, errors)
     ##############
 
     # circuit for decoding
@@ -226,3 +224,17 @@ def pretty_print_Steane_results(results):
     print(f"Total occurrences: {results['total_occurrences']}")
     print(f"Detailed counts: {results['detailed_counts']}")
     print("")
+
+
+def steane_Noisy_Channel(circuit, errors):
+    # target_qubits = [0]
+    # error_probs = {"x": 0.99 } # error_probs = {"x": 0.10, "z": 0.15, "y": 0.05}
+    
+    if not errors or not errors.get("target_qubits") or not errors.get("error_probs"):
+        return circuit
+    
+    target_qubits = errors["target_qubits"]
+    error_probs = errors["error_probs"]
+
+    circuit = apply_errors_probabilistic(circuit, target_qubits, error_probs)
+    return circuit

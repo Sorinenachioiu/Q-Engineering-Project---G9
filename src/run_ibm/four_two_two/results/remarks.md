@@ -2,28 +2,29 @@
 
 ## How Deutsch's algorithm look like (2 qubits)
 
-Below is the general circuit for Deutsch's algorithm, using 2 qubits. As you can see you begin from a `|01>` state, apply a `hadamard transform`(hadamard on all qubits) then you pass your qubits through an oracle that is able to simulate any function `f(x)`. and at the end you hadamard the first qubit and then measure it.
+Below is the general circuit for Deutsch's algorithm, using 2 qubits. As you can see you begin from a `|01>` state, apply a `hadamard transform`(hadamard on all qubits) then you pass your qubits through an oracle that is able to simulate any function `f(x)`. and at the end you hadamard the first qubit and  measure it.
 
-![alt text](image-1.png)
+![alt text](assets/image-1.png)
 
-The algorithm is meant to tell wheter a given function is constant or balanced. In the case of a constant function, the output will be 0, and in the case of a balanced function, the output will be 1. 
+The algorithm is meant to tell wheter a given function is constant or balanced (f(x) = value -> constant, f(x) = 0 half of time, f(x) = 1 the other half -> balanced). In the case of a constant function, the output will be 0, and in the case of a balanced function, the output will be 1. 
 
-Now, let's look at the 4 possible functions that we can analyze, mroe specifically at how the oracle would look for each of them. See below.
-![alt text](image-2.png)
+Now, let's look at the 4 possible functions that we can analyze, more specifically at how the oracle would look for each of them. See below.
+
+![alt text](assets/image-2.png)
 
 
 ## [[4,2,2]] encoding
 
-4 physical qubits, 2 logical qubits, 2 ancilla qubits. The logical qubits are encoded in the physical qubits in the following way:
+4 physical qubits, 2 logical qubits, distance 2 errors. The logical qubits are encoded in the physical qubits in the following way:
 
-![https://errorcorrectionzoo.org/c/stab_4_2_2#citation-1](image-4.png)
+![https://errorcorrectionzoo.org/c/stab_4_2_2#citation-1](assets/image-4.png)
 
-Soo, we use the stabilizers to define a space with only 4 states that are valid, and use those two states to encode two logical qubits. pretty neat, right?
+Soo, we use the stabilizers to define a space with only 8 states that are valid, and pair them into four states to encode two logical qubits. pretty neat, right?
 
 Looking now at the circuit:
 
-![alt text](image-3.png)
-![alt text](image-5.png)
+![alt text](assets/image-3.png)
+![alt text](assets/image-5.png)
 
 What happens in this circuit is as follows:
 - we get to encode to the logical `|00>` state. More explicitly, in the first part, a hadamard gets us a `|+>` in the first qubit, and CX gates "copy" the state to the others qubits.
@@ -35,20 +36,20 @@ What happens in this circuit is as follows:
 This is pretty nice, what is even nicer that the result of stabilizers tell us whether there was an error or not in the circuit at any point.
 
 And the data qubits that were measured will be in one of the 8 possible states from here : 
-![alt text](image-6.png)
+![alt text](assets/image-6.png)
 
 Since they are all different, we can determine what was the logical state that they were encoding.
 Performing multiple experiments means that we expect to see a histogram as below:
-![alt text](image-7.png)
+![alt text](assets/image-7.png)
 
-Basically the measurement collapses with equal probability in one of the states that encode a superposition, as you can see from the first four qubits. This reasult can be interpreted as the logical state |10> as you can see from the previous description of the states.
+Basically the measurement collapses with equal probability in one of the states that encode a superposition, as you can see from the first four qubits. This result can be interpreted as the logical state |10> as you can see from the previous description of the states.
 
 The last two qubits being 00, means that both the stabilizers got an output of 0, meaning there was either no error, or there was an error that can be missinterpreted as a logical operator. (changes the state into another valid state).
 
 Now, let's get to the fun part: Deutsch's algorithm using the [[4,2,2]] encoding.
 
 ## Notes on how the logical gates work like in [[4,2,2]]
-![alt text](image-8.png)
+![alt text](assets/image-8.png)
 done, this are the notes =))
 
 ## Implementing Deutsch's algorithm using [[4,2,2]] encoding
@@ -56,8 +57,9 @@ done, this are the notes =))
 In a really nice world, maybe even call it ideal, we would get exactly what we would expect: 
 
 - `f(x) = 0` would return `0` (constant function)
+
 This is the circuit for it, suing the 422 encoding and logical operators.
-![00 - const](image-12.png)
+![00 - const](assets/image-12.png)
 
 
 The circuit was made in an interesting manner: 
@@ -70,12 +72,17 @@ The circuit was made in an interesting manner:
 - Since `f(x) = 0` is constant, we expect the result to be 0.
 
 And this would be the results, as got from running the `run_Deutsch_logical_422_qi` function from the `four_two_two_qi` module:
-![results - quantum inspire simulator](image.png)
+
+![results - quantum inspire simulator](assets/image.png)
 As you can see the result is `0`, as expected, (the second bit is the one we are interested in, as explained above when trying to make sense of the swaping when doing operations).
+
+Here is a step by step abstract way of seeing what happens inside of the above circuit:
+
+![alt text](assets/Desen3.png)
 
 Yet, real life is not as good as the simulation... when running the same code on the ibm quantum platform... the physical qubits are really noisy and.. well, it's like a coin flip... you get all the possible outputs in equal probability...: (for brevety the huge list of all the bitstrings got as output was omited)
 
-![alt text](image-10.png)
+![alt text](assets/image-10.png)
 
 So, as we can see above, running on a real, current quantum computer/processor, is not working that well. The noise is too high, and maybe the amount of operations might also be problematic as well...=(
 
@@ -84,9 +91,9 @@ So, as we can see above, running on a real, current quantum computer/processor, 
 
 - `f(x) = 1` would return `0` (constant function)
 
-![alt text](image-11.png)
+![alt text](assets/image-11.png)
 
-![alt text](image-9.png)
+![alt text](assets/image-9.png)
 
 Once again the second bit is 0. 
 
@@ -96,9 +103,9 @@ Also in here, the operation of the oracle is equal to a logical X on the 2nd qub
 - `f(x) = x` would return `1` (balanced function)
 
 
-![01 - balanced](image-13.png)
+![01 - balanced](assets/image-13.png)
 
-![alt text](image-14.png)
+![alt text](assets/image-14.png)
 
 Second bit is 1 => yes, we get balanced as output.
 
@@ -107,9 +114,9 @@ The oracle is now a logical CNOT01, implemented as a SWAP01.
 
 - `f(x) = (x+1) mod 2` would return `1` (balanced function)
 
-![alt text](image-15.png)
+![alt text](assets/image-15.png)
 
-![alt text](image-16.png)
+![alt text](assets/image-16.png)
 
 Second bit is 1 => yes, we get balanced as output.
 
@@ -117,6 +124,6 @@ The oracle is now a logical CNOT01, implemented as a SWAP01. Followed by a logic
 
 ## Conclusion
 
-We were able to implement an algorithm using logical qubits, with logical operators, which is really interesting to see. It is also interesting to understand how the way you apply logical operators might affect the way you think about the algorithm, as it makes it not be that straightforward, as it is when you think about qubits in a more `physical qubit` way. Error detection is also a really nice feature, even though the results of the ibm quantum computer were not that good, we can at least know when we had an error. If the error rates of physical qubits would be lower, then this method might be benefical, as you can tell an error happened an try to rerun the algorithm. Yet, probably we would never get to that low error levels... thus, surface codes might be the way to go, as they are way more scalable and make way more sense.
+We were able to implement an algorithm using logical qubits, with logical operators, which is really interesting to see. It is also interesting to understand how the way you apply logical operators might affect the way you think about the algorithm, as it makes it not be that straightforward, as it is when you think about qubits in a more `physical qubit` way. Error detection is also a really nice feature, even though the results of the ibm quantum computer were not that good, we can at least know when we had an error. If the error rates of physical qubits would be lower, then this method might be benefical, as you can tell an error happened an try to rerun the algorithm, and at the same time use a really low number of qubits for a logical one. Yet, probably we would never get to that low error levels... thus, surface codes might be the way to go, as they are way more scalable and make way more sense.
 
-Implementing the Deutsch algorithm with this encoding was mostly motivated by the ease of working with two qubits, and how the logical operations on them work like.
+Implementing the Deutsch algorithm with this encoding was mostly motivated by the ease of working with two qubits, and how the logical operations on them work like. 

@@ -1,7 +1,7 @@
 # Experiments to run and their results
 
 ## Running experiments:
-In the `experiments.py` define the properties of the experiment to be run and then add it to a list and run it from main.
+In the `properties` folder you can define define the properties of the experiment to be run and then add it to a list inside the `experiments.py` and run it from main.
 By calling the `run_experiments` function inside of run_experiments.py
 
 This will call `qecc_experiment` function from framework.py which will automatically run the experiments

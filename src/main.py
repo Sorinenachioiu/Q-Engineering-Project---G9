@@ -45,8 +45,18 @@ backend = get_backend(backend_type, True)
 ############# EXPERIMENTS #######################
 ## Remember to change in helpers the ylim part
 # experiments_to_run = ["x_513"]
-experiments_to_run = ["y_513"]
+# experiments_to_run = ["y_513"]
 # experiments_to_run = ["z_513"]
-run_experiments(backend, experiments_to_run)
+# run_experiments(backend, experiments_to_run)
 
+# perform_experiment(backend, generate_stabilizers_x_circuit_steane(), "steane/stabilizers/x" )
+# perform_experiment(backend, generate_stabilizers_z_circuit_steane(), "steane/stabilizers/z" )
 
+# perform_experiment(backend, bit_flip_code(), "presentation/basic_bit_flip" )
+perform_experiment(backend, four_two_two_Deutsch_f11_constant(), "deutsch/f11_const" )
+
+# q = QuantumRegister(9,'q')
+# c = ClassicalRegister(1,'c')
+
+# circuit = QuantumCircuit(q, c)
+# perform_experiment(backend, shor_encoding(circuit, q), "presentation/shor_encoding" )

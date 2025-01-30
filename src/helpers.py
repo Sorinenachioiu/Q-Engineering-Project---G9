@@ -12,6 +12,7 @@ def perform_experiment(backend, circuit, experiment_name, store_results = True, 
 
     if store_results:
         save_circuit_png(circuit, experiment_name)
+        save_circuit_latex(circuit, experiment_name)
 
     # Execute the circuit on the backend
     try:
@@ -43,6 +44,19 @@ def save_circuit_png(circuit, experiment_name):
     fig = circuit.draw(output='mpl')
     fig.savefig(f'{output_path}.png')  
     print(f"Circuit diagram saved to {output_path}.png \n")
+
+
+def save_circuit_latex(circuit, experiment_name):
+    output_path = f'/app/output/{experiment_name}/circuit'
+    directory = os.path.dirname(output_path)
+    if not os.path.exists(directory):
+        os.makedirs(directory)  # Create directories as needed
+
+    # Save the circuit diagram as LaTeX
+    with open(f'{output_path}.tex', 'w') as latex_file:
+        latex_code = circuit.draw(output='latex_source')
+        latex_file.write(latex_code)
+    print(f"LaTeX circuit diagram saved to {output_path}.tex\n")
 
 
 def save_histogram(counts, experiment_name):

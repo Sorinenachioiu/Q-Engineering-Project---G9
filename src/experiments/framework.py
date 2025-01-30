@@ -74,8 +74,7 @@ def compute_theoretical_and_physical_qubit_success_rates(error_range):
     # Take a more continuous like error_probabilities for smooth lines for theoretical and physical qubit values
     continuos_error_probabilities = np.linspace(error_range[0], error_range[1], 500)
 
-    # Compute theoretical and physical qubit success rates over 
-    #### !!!!!!!!!!!! CAREFUL now we change params by hand !!!!!!!!!!!!!!!!!!
+    # Compute theoretical and physical qubit success rates 
     theoretical_success_rates = [theoretical_model(p, errornum=5, maxerrors=1) for p in continuos_error_probabilities]
     physical_success_rates = [theoretical_model(p, errornum=1, maxerrors=0) for p in continuos_error_probabilities]
 

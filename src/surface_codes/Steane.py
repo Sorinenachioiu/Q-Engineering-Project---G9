@@ -26,6 +26,27 @@ def steane_apply_S_logical(circuit, data):
     return circuit
 
 
+def generate_Steane_basis():
+    stabilizers_indices = [
+        [0, 2, 4, 6],  # First stabilizer indices
+        [1, 2, 5, 6],  # Second stabilizer indices
+        [3, 4, 5, 6]   # Third stabilizer indices
+    ]
+
+    # Define quantum registers
+    data = QuantumRegister(7, 'D')     
+    ancilla_x = QuantumRegister(3, 'A_x')  
+    ancilla_z = QuantumRegister(3, 'A_z')   
+    stabilizer_classical_x = ClassicalRegister(3, 'stabilizer_x_c')  # For stabilizers
+    stabilizer_classical_z = ClassicalRegister(3, 'stabilizer_z_c')  # For stabilizers
+    logical_classical = ClassicalRegister(7, 'logical_c')        # For logical qubit
+
+    # Create quantum circuit
+    circuit = QuantumCircuit(data, ancilla_x, ancilla_z, stabilizer_classical_x, stabilizer_classical_z, logical_classical)
+    
+    return circuit, data, ancilla_x, ancilla_z, stabilizer_classical_x, stabilizer_classical_z, logical_classical, stabilizers_indices
+
+
 def steane_encoding(circuit, data):
 
     circuit.h(data[4])
@@ -53,6 +74,31 @@ def steane_encoding(circuit, data):
     circuit.barrier()
 
     return circuit
+
+def generate_basis_and_econding_steane():
+
+    circuit, data, _, _, _, _, _, _ = generate_Steane_basis()
+
+    circuit = steane_encoding(circuit, data)   
+
+    return circuit 
+
+def generate_stabilizers_x_circuit_steane():
+
+    circuit, data, ancilla_x, ancilla_z, stabilizer_classical_x, stabilizer_classical_z, logical_classical, stabilizers_indices = generate_Steane_basis()
+
+    circuit = steane_stabilizers_x(circuit, data, ancilla_x, stabilizers_indices)   
+
+    return circuit 
+
+def generate_stabilizers_z_circuit_steane():
+
+    circuit, data, ancilla_x, ancilla_z, stabilizer_classical_x, stabilizer_classical_z, logical_classical, stabilizers_indices = generate_Steane_basis()
+
+    circuit = steane_stabilizers_z(circuit, data, ancilla_z, stabilizers_indices)   
+
+    return circuit 
+
 
 def steane_stabilizers_x(circuit, data, ancilla, stabilizers_indices):
     for i, indices in enumerate(stabilizers_indices):
@@ -129,22 +175,7 @@ def steane_correct_error(circuit, data, stabilizer_classical_x, stabilizer_class
 # https://stem.mitre.org/quantum/error-correction-codes/steane-ecc.html
 def steane_code(errors =[], verbose=False):
 
-    stabilizers_indices = [
-        [0, 2, 4, 6],  # First stabilizer indices
-        [1, 2, 5, 6],  # Second stabilizer indices
-        [3, 4, 5, 6]   # Third stabilizer indices
-    ]
-
-    # Define quantum registers
-    data = QuantumRegister(7, 'D')     
-    ancilla_x = QuantumRegister(3, 'A_x')  
-    ancilla_z = QuantumRegister(3, 'A_z')   
-    stabilizer_classical_x = ClassicalRegister(3, 'stabilizer_x_c')  # For stabilizers
-    stabilizer_classical_z = ClassicalRegister(3, 'stabilizer_z_c')  # For stabilizers
-    logical_classical = ClassicalRegister(7, 'logical_c')        # For logical qubit
-
-    # Create quantum circuit
-    circuit = QuantumCircuit(data, ancilla_x, ancilla_z, stabilizer_classical_x, stabilizer_classical_z, logical_classical)
+    circuit, data, ancilla_x, ancilla_z, stabilizer_classical_x, stabilizer_classical_z, logical_classical, stabilizers_indices = generate_Steane_basis()
 
     # circuit.h(data[0]) # - initial state can be encoded in data[0]
 

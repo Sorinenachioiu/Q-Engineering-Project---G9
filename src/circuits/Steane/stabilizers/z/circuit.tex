@@ -1,0 +1,26 @@
+\documentclass[border=2px]{standalone}
+
+\usepackage[braket, qm]{qcircuit}
+\usepackage{graphicx}
+
+\begin{document}
+\scalebox{1.0}{
+\Qcircuit @C=1.0em @R=0.2em @!R { \\
+	 	\nghost{{D}_{0} :  } & \lstick{{D}_{0} :  } & \qw & \targ & \qw & \qw & \qw & \qw \barrier[0em]{12} & \qw & \qw & \qw & \qw & \qw & \qw & \qw \barrier[0em]{12} & \qw & \qw & \qw & \qw & \qw & \qw & \qw \barrier[0em]{12} & \qw & \qw & \qw\\
+	 	\nghost{{D}_{1} :  } & \lstick{{D}_{1} :  } & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \targ & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \qw\\
+	 	\nghost{{D}_{2} :  } & \lstick{{D}_{2} :  } & \qw & \qw & \targ & \qw & \qw & \qw & \qw & \qw & \qw & \targ & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \qw\\
+	 	\nghost{{D}_{3} :  } & \lstick{{D}_{3} :  } & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \targ & \qw & \qw & \qw & \qw & \qw & \qw & \qw\\
+	 	\nghost{{D}_{4} :  } & \lstick{{D}_{4} :  } & \qw & \qw & \qw & \targ & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \targ & \qw & \qw & \qw & \qw & \qw & \qw\\
+	 	\nghost{{D}_{5} :  } & \lstick{{D}_{5} :  } & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \targ & \qw & \qw & \qw & \qw & \qw & \qw & \targ & \qw & \qw & \qw & \qw & \qw\\
+	 	\nghost{{D}_{6} :  } & \lstick{{D}_{6} :  } & \qw & \qw & \qw & \qw & \targ & \qw & \qw & \qw & \qw & \qw & \qw & \targ & \qw & \qw & \qw & \qw & \qw & \qw & \targ & \qw & \qw & \qw & \qw\\
+	 	\nghost{{A\_x}_{0} :  } & \lstick{{A\_x}_{0} :  } & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \qw\\
+	 	\nghost{{A\_x}_{1} :  } & \lstick{{A\_x}_{1} :  } & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \qw\\
+	 	\nghost{{A\_x}_{2} :  } & \lstick{{A\_x}_{2} :  } & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \qw\\
+	 	\nghost{{A\_z}_{0} :  } & \lstick{{A\_z}_{0} :  } & \gate{\mathrm{H}} & \ctrl{-10} & \ctrl{-8} & \ctrl{-6} & \ctrl{-4} & \gate{\mathrm{H}} & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \qw\\
+	 	\nghost{{A\_z}_{1} :  } & \lstick{{A\_z}_{1} :  } & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \gate{\mathrm{H}} & \ctrl{-10} & \ctrl{-9} & \ctrl{-6} & \ctrl{-5} & \gate{\mathrm{H}} & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \qw\\
+	 	\nghost{{A\_z}_{2} :  } & \lstick{{A\_z}_{2} :  } & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \gate{\mathrm{H}} & \ctrl{-9} & \ctrl{-8} & \ctrl{-7} & \ctrl{-6} & \gate{\mathrm{H}} & \qw & \qw & \qw\\
+	 	\nghost{\mathrm{{stabilizer\_x\_c} :  }} & \lstick{\mathrm{{stabilizer\_x\_c} :  }} & \lstick{/_{_{3}}} \cw & \cw & \cw & \cw & \cw & \cw & \cw & \cw & \cw & \cw & \cw & \cw & \cw & \cw & \cw & \cw & \cw & \cw & \cw & \cw & \cw & \cw & \cw\\
+	 	\nghost{\mathrm{{stabilizer\_z\_c} :  }} & \lstick{\mathrm{{stabilizer\_z\_c} :  }} & \lstick{/_{_{3}}} \cw & \cw & \cw & \cw & \cw & \cw & \cw & \cw & \cw & \cw & \cw & \cw & \cw & \cw & \cw & \cw & \cw & \cw & \cw & \cw & \cw & \cw & \cw\\
+	 	\nghost{\mathrm{{logical\_c} :  }} & \lstick{\mathrm{{logical\_c} :  }} & \lstick{/_{_{7}}} \cw & \cw & \cw & \cw & \cw & \cw & \cw & \cw & \cw & \cw & \cw & \cw & \cw & \cw & \cw & \cw & \cw & \cw & \cw & \cw & \cw & \cw & \cw\\
+\\ }}
+\end{document}

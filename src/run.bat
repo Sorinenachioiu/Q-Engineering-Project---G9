@@ -7,4 +7,4 @@ REM Run the Docker container and map the output folder to ./circuits
 docker run --rm -it -v "%cd%/circuits:/app/output" q_eng_proj
 
 REM Notify the user
-echo Circuit diagram saved to ./circuits/circuit.png
+echo Outputs saved to ./circuits
